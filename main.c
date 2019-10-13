@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:04:17 by apouchet          #+#    #+#             */
-/*   Updated: 2019/10/11 17:22:22 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/13 14:31:42 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ int		ft_key(int key,	t_data *data)
 
 		if (data->mouse_z)
 		{
-			tmp2 = data->mouse_x * 10;
+			tmp2 = data->mouse_x;
 			tmp = (data->x_a - data->x_b + tmp2);
 			data->x_a += (data->x_b - data->x_a + tmp2) * 0.1;
 			data->x_b += tmp * 0.1;
 
-			tmp2 = data->mouse_y * 10;
+			tmp2 = data->mouse_y;
 			tmp = (data->y_a - data->y_b + tmp2);
 			data->y_a += (data->y_b - data->y_a + tmp2) * 0.1;
 			data->y_b += tmp * 0.1;
@@ -192,8 +192,8 @@ int		mouse_release_hook(int x, int y, t_data *data)
 	}
 	if (data->mouse_z)
 	{
-		data->mouse_x = (x - FENETRE_X / 2) / (FENETRE_X / (data->x_b - data->x_a));
-		data->mouse_y = (y - FENETRE_Y / 2) / (FENETRE_Y / (data->y_b - data->y_a)); 
+		data->mouse_x = (x - FENETRE_X / 2) / (FENETRE_X / 2.7);
+		data->mouse_y = (y - FENETRE_Y / 2) / (FENETRE_Y / 2.4); 
 		printf("mouse_x = %f && mouse_y = %f\n", data->mouse_x, data->mouse_y);
 	}
 	return (0);
