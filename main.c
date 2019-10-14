@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:04:17 by apouchet          #+#    #+#             */
-/*   Updated: 2019/10/13 14:31:42 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/14 09:57:11 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,34 +99,32 @@ int		ft_key(int key,	t_data *data)
 		double tmp;
 		double tmp2;
 
-		if (data->mouse_z)
-		{
-			tmp2 = data->mouse_x;
-			tmp = (data->x_a - data->x_b + tmp2);
-			data->x_a += (data->x_b - data->x_a + tmp2) * 0.1;
-			data->x_b += tmp * 0.1;
-
-			tmp2 = data->mouse_y;
-			tmp = (data->y_a - data->y_b + tmp2);
-			data->y_a += (data->y_b - data->y_a + tmp2) * 0.1;
-			data->y_b += tmp * 0.1;
-
-			data->step_x = (data->x_b - data->x_a) * 0.01;
-			data->step_y = (data->y_b - data->y_a) * 0.01;
-		}
-		else
-		{
+			tmp2 = 2 * data->mouse_x / (data->x_b - data->x_a);
 			tmp = (data->x_a - data->x_b);
 			data->x_a += (data->x_b - data->x_a) * 0.1;
 			data->x_b += tmp * 0.1;
+			if (data->mouse_z)
+			{
+			tmp = (data->x_b - data->x_a) / 2;
+			data->x_a -=  tmp2 * tmp - data->mouse_x;
+			data->x_b -=  tmp2 * tmp - data->mouse_x;
+			data->mouse_x +=  tmp2 * tmp - data->mouse_x;
+			}
 
+			tmp2 = 2 * data->mouse_y / (data->y_b - data->y_a);
 			tmp = (data->y_a - data->y_b);
 			data->y_a += (data->y_b - data->y_a) * 0.1;
 			data->y_b += tmp * 0.1;
+			if (data->mouse_z)
+			{
+			tmp = (data->y_b - data->y_a) / 2;
+			data->y_a -=  tmp2 * tmp - data->mouse_y;
+			data->y_b -=  tmp2 * tmp - data->mouse_y;
+			data->mouse_y +=  tmp2 * tmp - data->mouse_y;
+			}
 
 			data->step_x = (data->x_b - data->x_a) * 0.01;
 			data->step_y = (data->y_b - data->y_a) * 0.01;
-		}
 	}
 	if (key == 83 || key == 24)
 		data->iteration_max += 2;
@@ -186,14 +184,14 @@ int		mouse_release_hook(int x, int y, t_data *data)
 {
 	if (!(data->fix))
 	{
-		data->c_r = (x - FENETRE_X / 2) / (FENETRE_X / 2.7);
-		data->c_i = (y - FENETRE_Y / 2) / (FENETRE_Y / 2.4);
+		data->c_r = (x - FENETRE_X / 2) / (FENETRE_X / (data->x_b - data->x_a));
+		data->c_i = (y - FENETRE_Y / 2) / (FENETRE_Y / (data->y_b - data->y_a));
 		printf("mouseeargwe = %f && mouse_y = %f\n", data->c_r, data->c_i);
 	}
 	if (data->mouse_z)
 	{
-		data->mouse_x = (x - FENETRE_X / 2) / (FENETRE_X / 2.7);
-		data->mouse_y = (y - FENETRE_Y / 2) / (FENETRE_Y / 2.4); 
+		data->mouse_x = (x - FENETRE_X / 2) / (FENETRE_X / (data->x_b - data->x_a));
+		data->mouse_y = (y - FENETRE_Y / 2) / (FENETRE_Y / (data->y_b - data->y_a));
 		printf("mouse_x = %f && mouse_y = %f\n", data->mouse_x, data->mouse_y);
 	}
 	return (0);
