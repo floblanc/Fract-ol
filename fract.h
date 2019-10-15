@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fract.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apouchet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:04:20 by apouchet          #+#    #+#             */
-/*   Updated: 2019/10/11 16:12:18 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/10/13 15:33:51 by apouchet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,11 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-# define FENETRE_X (1500 / 2)
-# define FENETRE_Y (1286 /2)
+# define FENETRE_X (1500)
+# define FENETRE_Y (1286)
 # define R 0x00FF0000
 # define G 0x0000FF00
 # define B 0x000000FF
-
-double a;
-double b;
 
 typedef struct	s_picture
 {
@@ -35,6 +32,22 @@ typedef struct	s_picture
 	int			sl;
 	int			endian;
 }				t_picture;
+
+typedef struct		s_tga
+{
+	char			id_length;
+	char			colour_map;
+	char			data_type;
+	short int		colour_origin;
+	short int		colour_length;
+	char			colour_depth;
+	short int		x_origin;
+	short int		y_origin;
+	short int		width;
+	short int		height;
+	char			bpp;
+	char			imagedescriptor;
+}					t_tga;
 
 typedef struct	s_data
 {
@@ -71,9 +84,25 @@ typedef struct	s_data
 	double		size_y;
 	int			div;
 	int			div_q;
+	int			mouse_button;
 	t_picture	p;
 }				t_data;
 
 int		ft_mandelbrot(t_data *d, double size_x, double size_y);
+
+void	reset_data(t_data *data);
+
+int		ft_key(int key,	t_data *data);
+
+int		mouse_release_hook(int x, int y, t_data *data);
+
+int		mouse_hook(int button, int x, int y, t_data *data);
+
+int		mouse_release(int button, int x, int y, t_data *data);
+
+int		ft_affich(t_data *data);
+
+void	ft_screen(t_data *data);
+
 
 #endif
