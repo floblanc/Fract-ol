@@ -6,7 +6,7 @@
 /*   By: floblanc <floblanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:04:20 by apouchet          #+#    #+#             */
-/*   Updated: 2019/11/18 15:38:33 by floblanc         ###   ########.fr       */
+/*   Updated: 2019/11/18 15:49:53 by floblanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include "libprintf.h"
 # include <time.h>
 
-# define FENETRE_X (1500)
-# define FENETRE_Y (1286)
+# define FENETRE_X (1500 / 2)
+# define FENETRE_Y (1286 / 2)
 # define SCREENSHOT "Desktop"
 # define BUILD_FDF "Desktop"
 # define R 0x00FF0000
